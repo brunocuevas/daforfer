@@ -1,0 +1,22 @@
+[project]
+name = "daforfer"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=2.3.3",
+    "daforfer",
+    "duckdb>=1.4.1",
+    "ipython>=9.6.0",
+    "jupyterlab>=4.4.9",
+    "openpyxl>=3.1.5",
+    "click>=8.3.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv.sources]
+daforfer = { workspace = true }
