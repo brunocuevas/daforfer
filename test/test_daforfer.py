@@ -54,5 +54,27 @@ class TestDaforfer(unittest.TestCase):
         u = pd.read_excel("test.xlsx")
         self.assertIsInstance(u, pd.DataFrame)
 
+    def test_tov(self):
+        import pandas as pd
+        from daforfer import DaforferDB  
+        db = DaforferDB(db_path="test.db")
+        x = 1233.0123
+        db.add_value(
+            "my-value", "this is a random value that I just made up", x, "float", overwrite=True
+        )
+        self.assertAlmostEqual(db.tov().df().query('name == "my-value"').value.values.tolist()[0], x, places=6)
+        self.assertEqual(db.get_value('my-value').loc[0, 'type'], 'float')
+
+    def test_remove_value(self):
+        import pandas as pd
+        from daforfer import DaforferDB  
+        db = DaforferDB(db_path="test.db")
+        x = 1233.0123
+        db.add_value(
+            "my-value", "this is a random value that I just made up", x, "float", overwrite=True
+        )
+        db.remove_value("my-value")
+        self.assertTrue(db.tov().df().query('name == "my-value"').empty)
+
 if __name__ == "__main__":
     unittest.main()
